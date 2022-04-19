@@ -81,3 +81,12 @@ resource "aws_instance" "dev_node" {
     interpreter = var.host_os == "windows" ? ["powershell", "-Command"] : ["bash", "-c"]
   }
 }
+
+resource "null_resource" "instance_check" {
+  provisioner "local-exec" {
+    command = "aws ec2 wait instance-status-ok --instance-ids ${aws_instance.dev_node.id}"
+  }
+  depends_on = [
+    aws_instance.dev_node
+  ]
+}
