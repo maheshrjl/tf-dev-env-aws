@@ -1,5 +1,6 @@
-# tf-dev-env-aws
-Provisioning a development environment with terrafrom in aws
+# create a development environment with terrafrom in aws
+
+### Features
 
 - Create instance with private key on device
 - Add instance config to ~/.ssh for easy ssh using vscode 
@@ -11,5 +12,5 @@ Provisioning a development environment with terrafrom in aws
 
 
 
-[Pending]
+### To-Do
 - Delete configuration from ssh config when instance is destroyed
