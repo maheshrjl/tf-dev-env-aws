@@ -18,7 +18,7 @@ resource "aws_security_group" "dev_sg" {
     protocol    = "-1"
     to_port     = 0
   }
-  
+
   tags = {
     "Name" = "dev_sg"
   }

@@ -46,17 +46,17 @@ resource "aws_route_table_association" "dev_public_assoc" {
 }
 
 resource "aws_key_pair" "dev_ssh_key" {
-  key_name = "aws_key"
+  key_name   = "aws_key"
   public_key = file("~/.ssh/id_ed25519_aws.pub")
 }
 
 resource "aws_instance" "dev_node" {
   instance_type = "t2.micro"
-  ami = data.aws_ami.dev_ami.id
-  
-  key_name = aws_key_pair.dev_ssh_key.id
+  ami           = data.aws_ami.dev_ami.id
+
+  key_name               = aws_key_pair.dev_ssh_key.id
   vpc_security_group_ids = [aws_security_group.dev_sg.id]
-  subnet_id = aws_subnet.dev_public_subnet.id
+  subnet_id              = aws_subnet.dev_public_subnet.id
 
   user_data = file("userdata.tpl")
 
@@ -74,8 +74,8 @@ resource "aws_instance" "dev_node" {
 
   provisioner "local-exec" {
     command = templatefile("${var.host_os}-ssh-config.tpl", {
-      hostname = self.public_ip,
-      user = "ec2-user",
+      hostname     = self.public_ip,
+      user         = "ec2-user",
       identityfile = "~/.ssh/id_ed25519_aws"
     })
     interpreter = var.host_os == "windows" ? ["powershell", "-Command"] : ["bash", "-c"]
