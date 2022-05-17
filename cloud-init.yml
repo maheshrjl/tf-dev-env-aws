@@ -1,0 +1,19 @@
+#cloud-config
+#Pending testing
+packages:
+  - docker.io
+  - docker-compose
+
+# create the docker group
+groups:
+  - docker
+
+# Add default auto created user to docker group
+system_info:
+  default_user:
+    groups: [docker]
+
+runcmd:
+  - yum update -y
+  - systemctl start docker
+  - systemctl enable docker
